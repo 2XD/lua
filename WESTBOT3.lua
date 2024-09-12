@@ -4,14 +4,14 @@ local name = api.GetName()
 local a = api.GetXuid()
 whitelistsucess = false
 
-local first = '76561198402027828'
-local second = '76561199077147044'
-local third = '76561199151264690'
-local fourth = '76561199146152332'
-local fifth = '76561199130154797'
-local sixth= '76561197999028155'
-local seventh = '76561199111267676'
-local eighth = '76561199167526475'
+local first = '765111111111111111'
+local second = '76522222222222222'
+local third = '765333333333333333'
+local fourth = '76544444444444444'
+local fifth = '765555555555555555'
+local sixth= '7656666666666666666'
+local seventh = '7657777777777777'
+local eighth = '76588888888888888'
 if (a == first or a == second or a == third or a == fourth or a == fifth or a == sixth or a == seventh or a == eighth) then
     whitelistsucess = true
     client.color_log(255, 182, 193, "[WESTBOT] lua loaded")
