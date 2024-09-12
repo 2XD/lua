@@ -8,16 +8,16 @@ local a = api.GetXuid() -- Get the user's XUID
 -- Set whitelist success flag to false initially
 local whitelistsucess = false
 
--- List of XUIDs allowed to access the script (whitelist)
+-- List of sample XUIDs allowed to access the script (whitelist)
 local whitelist = {
-    '76561198402027828',
-    '76561199077147044',
-    '76561199151264690',
-    '76561199146152332',
-    '76561199130154797',
-    '76561197999028155',
-    '76561199111267676',
-    '76561199167526475'
+    '76561111111111111',
+    '76561222222222222',
+    '76561333333333333',
+    '76564444444444444',
+    '76565555555555555',
+    '76566666666666666',
+    '76567777777777777',
+    '76568888888888888'
 }
 
 -- Check if the user's XUID is in the whitelist
@@ -30,7 +30,7 @@ if table.contains(whitelist, a) then
 else
     -- If not whitelisted, unload the script and log a message
     whitelistsucess = false
-    client.color_log(255, 182, 193, "[WESTBOT] not authed, dm clips#0001")
+    client.color_log(255, 182, 193, "[WESTBOT] not authed, please message the creator")
     local unload_ui = ui.reference("MISC", "Settings", "Unload")
     ui.set(unload_ui)
 end
@@ -38,7 +38,7 @@ end
 -- If whitelist check fails, stop further execution
 if not whitelistsucess then return end
 
--- Automatically select SSG08 on round prestart or player spawn
+-- Automatically select the weapon "SSG08" on round start or player spawn
 client.set_event_callback("on_round_prestart", function()
     client.exec("use weapon_ssg08;")
 end)
@@ -49,7 +49,7 @@ client.set_event_callback("player_spawn", function(e)
     end
 end)
 
--- Auto-vote functionality, selects specific maps in the end match voting process
+-- Auto-vote functionality, selects specific maps in the end match voting process to automate xp gain the most
 local auto_vote = panorama.loadstring([[
     var AutoVoteMain = () => {
         if (GameStateAPI.IsDemoOrHltv() || !GameStateAPI.IsEndMatchMapVoteEnabled()) {
@@ -105,8 +105,8 @@ local ui_get = ui.get
 
 -- Helper to get the opposite team number
 local get_opposite_team_num = {
-    [2] = 3, -- 2 is TERRORIST
-    [3] = 2  -- 3 is COUNTER-TERRORIST
+    [2] = 3, -- 2 is TEAM TERRORIST
+    [3] = 2  -- 3 is TEAM COUNTER-TERRORIST
 }
 
 -- Joins the specified team (2 = Terrorist, 3 = Counter-Terrorist)
@@ -118,7 +118,7 @@ local function join_team(team_num)
     end
 end
 
--- Automatically switch teams if a condition is met (e.g., team wins)
+-- Automatically switch teams if a condition is met (e.g., team wins), this is set by the user in the javascript UI
 local old_score_total = 0
 local once = false
 local enabled_ref = ui.new_checkbox('lua', 'a', 'Switch teams on round win')
