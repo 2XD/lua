@@ -118,7 +118,8 @@ local function join_team(team_num)
     end
 end
 
--- Automatically switch teams if a condition is met (e.g., team wins), this is set by the user in the javascript UI
+-- Automatically switch teams when a certain amount of rounds are won. 
+-- This is set by the slider titled "Switch teams on round win" this is set by the user in the UI
 local old_score_total = 0
 local once = false
 local enabled_ref = ui.new_checkbox('lua', 'a', 'Switch teams on round win')
@@ -138,7 +139,9 @@ local function on_setup_command()
     local local_player = entity_get_local_player()
     local local_player_team, team_num = get_player_team(player_resource, local_player)
     local score_total = entity_get_prop(local_player_team, 'm_scoreTotal')
-
+    
+-- reset the score total and switch teams when the round is reached
+    
     if old_score_total ~= score_total and score_total == ui_get(round_ref) then
         if not once then
             join_team(get_opposite_team_num[team_num])
@@ -167,7 +170,7 @@ end
 on_enabled_ref()
 ui.set_callback(enabled_ref, on_enabled_ref)
 
--- Automatically choose team based on user selection
+-- Automatically choose team based on user selection in the UI
 local chosen_team = ui.new_combobox("lua", "a", "Automatically choose team", { "Off", "Counter-Terrorists", "Terrorists" })
 local function join()
     if ui.get(chosen_team) == "Counter-Terrorists" then
